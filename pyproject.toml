@@ -1,0 +1,18 @@
+[project]
+name = "Ligotools"
+description = "LIGO tools package"
+version = "0.1.0"
+authors = [
+    { name = "Ligo Scientific Collaboration (LSC) and Duang" }
+]
+dependencies = [
+    'matplotlib',
+    'numpy',   
+    'scipy',
+    'h5py',
+    'json',
+    'IPython'
+]
+
+[build-system]
+requires = ["setuptools"]
