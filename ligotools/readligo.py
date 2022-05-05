@@ -129,18 +129,18 @@ def read_hdf5(filename, readstrain=True):
     #-- Read the DQ information
     dqInfo = dataFile['quality']['simple']
     qmask = dqInfo['DQmask'][...]
-    shortnameArray = dqInfo['DQShortnames'].value
+    shortnameArray = dqInfo['DQShortnames'][()]
     shortnameList  = list(shortnameArray)
     
     # -- Read the INJ information
     injInfo = dataFile['quality/injections']
     injmask = injInfo['Injmask'][...]
-    injnameArray = injInfo['InjShortnames'].value
+    injnameArray = injInfo['InjShortnames'][()]
     injnameList  = list(injnameArray)
     
     #-- Read the meta data
     meta = dataFile['meta']
-    gpsStart = meta['GPSstart'].value    
+    gpsStart = meta['GPSstart'][()]    
     
     dataFile.close()
     return strain, gpsStart, ts, qmask, shortnameList, injmask, injnameList
@@ -272,7 +272,7 @@ def dq_channel_to_seglist(channel, fs=4096):
         boundaries = np.append(boundaries,len(condition))
 
     # -- group the segment boundaries two by two
-    segments = boundaries.reshape((len(boundaries)/2,2))
+    segments = boundaries.reshape((len(boundaries)//2, 2))
     # -- Account for sampling frequency and return a slice
     segment_list = [slice(start*fs, stop*fs) for (start,stop) in segments]
     
